@@ -1,12 +1,12 @@
 # Codex Sidekick
 
-See your recent local Codex chats across projects on Stream Deck Neo. Trusted hooks add live activity colors for Codex chats in every project. Open Codex, start a chat, or use native Codex dictation from the same page.
+**A Stream Deck Neo companion for the OpenAI Codex extension in Visual Studio Code.** See your recent local Codex chats across projects on the Neo. Trusted hooks add live activity colors for Codex chats in every project. Open Codex, start a chat, or use native Codex dictation from the same page.
 
 > **Unofficial.** Codex Sidekick is an independent open-source project. It is not affiliated with, endorsed by, or sponsored by OpenAI, Microsoft, or Elgato. Codex, OpenAI, Visual Studio Code, Stream Deck, and Elgato are trademarks of their respective owners.
 
 **Requirements:** macOS 13 or later (released installers are built for Apple silicon; build from source on an Intel Mac), Stream Deck 7.6 or later with a Stream Deck Neo, VS Code with the official OpenAI Codex extension, and Node.js 22.18 or later for activity setup.
 
-**Status:** it works on the author's Mac, but it automates another product's interface, so a Codex update can break it. See [limitations](#limitations).
+**Status:** early release. Dictation works by clicking Codex's own microphone button, so a Codex update can break it until Sidekick is updated. See [limitations](#limitations).
 
 ## What it looks like
 

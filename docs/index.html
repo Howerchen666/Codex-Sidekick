@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Codex Sidekick</title>
-<meta name="description" content="A Stream Deck Neo companion for the OpenAI Codex extension in VS Code. Glowing chat keys, one-press dictation, and your usage at a glance.">
+<title>Codex Sidekick: Stream Deck for OpenAI Codex in VS Code</title>
+<meta name="description" content="A Stream Deck Neo companion for the OpenAI Codex extension in VS Code. Glowing chat keys, one-press dictation, and your Codex usage at a glance.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23171816'/%3E%3Crect x='6' y='6' width='9' height='9' rx='2.5' fill='%23479BEF'/%3E%3Crect x='17' y='6' width='9' height='9' rx='2.5' fill='%23F0AE28'/%3E%3Crect x='6' y='17' width='9' height='9' rx='2.5' fill='%2347B783'/%3E%3Crect x='17' y='17' width='9' height='9' rx='2.5' fill='%23FAF9F5'/%3E%3C/svg%3E">
 <style>
 :root {
@@ -60,7 +60,10 @@ nav .links a:hover { color: #fff; }
 .btn.primary:hover { background: #fff; }
 .btn.ghost { color: #F2F1EC; border-color: #3B3D37; }
 .btn.ghost:hover { border-color: #6A6C64; }
-.fine { margin-top: 22px; font-size: 14px; color: #8E9088; }
+.works { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 0; padding: 0; }
+.works li { font: 600 13px/1 var(--mono); letter-spacing: .02em; padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid #34362F; color: #D8D9D2; }
+.works li::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--green); margin-right: 8px; }
+.fine { margin-top: 18px; font-size: 14px; color: #8E9088; }
 @media (max-width: 880px) { .hero { padding: 120px 0 80px; } .hero .grid { grid-template-columns: minmax(0, 1fr); gap: 48px; } }
 
 /* The Neo */
@@ -143,13 +146,16 @@ footer a { color: var(--ink); }
   </nav>
   <div class="wrap grid" id="top">
     <div>
-      <p class="eyebrow">For Stream Deck Neo and VS Code</p>
+      <p class="eyebrow">Stream Deck Neo companion for OpenAI Codex in VS Code</p>
       <h1>Your Codex chats, <em>at a glance.</em></h1>
-      <p class="lead">Keys that glow while Codex works, wait for approval, or finish. One press to dictate. Your allowance on the Infobar. Everything stays on your Mac.</p>
+      <p class="lead">Keys that glow while OpenAI Codex works, waits for approval, or finishes. One press to dictate. Your Codex allowance on the Infobar. Built for the Codex extension in VS Code, and everything stays on your Mac.</p>
       <div class="cta">
         <a class="btn primary" data-repo="/releases/latest" href="#install">Download</a>
         <a class="btn ghost" data-repo href="#install">View on GitHub</a>
       </div>
+      <ul class="works" aria-label="Works with">
+        <li>OpenAI Codex</li><li>VS Code</li><li>Stream Deck Neo</li>
+      </ul>
       <p class="fine">macOS 13+ &middot; Stream Deck 7.6+ &middot; open source, MIT</p>
     </div>
 
@@ -174,7 +180,7 @@ footer a { color: var(--ink); }
   <div class="wrap">
     <div class="head">
       <p class="eyebrow">Features</p>
-      <h2>Everything Codex, one glance away.</h2>
+      <h2>Everything OpenAI Codex, one glance away.</h2>
     </div>
     <div class="cards">
       <div class="card"><div class="dot"><svg viewBox="0 0 32 32"><path d="M26 22H14l-7 5v-5H5V6h22v16Z"/></svg></div><h3>Recent chats, any project</h3><p>Four keys show your latest local Codex chats across every project, with titles that wrap across the key.</p></div>
