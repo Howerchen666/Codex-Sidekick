@@ -1,0 +1,12 @@
+node_modules/
+apps/vscode-extension/dist/
+apps/streamdeck-plugin/dev.sidekick.codex.sdPlugin/native/
+apps/streamdeck-plugin/dev.sidekick.codex.sdPlugin/plugin.mjs
+apps/streamdeck-plugin/dev.sidekick.codex.sdPlugin/logs/
+*.vsix
+*.streamDeckPlugin
+.DS_Store
+.vscode-test/
+*.tgz
+fixture/
+release/

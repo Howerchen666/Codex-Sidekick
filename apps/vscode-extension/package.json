@@ -1,0 +1,53 @@
+{
+  "name": "codex-sidekick",
+  "displayName": "Codex Sidekick",
+  "description": "See recent Codex activity and use Codex shortcuts on Stream Deck Neo.",
+  "publisher": "codex-sidekick",
+  "version": "1.7.0",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.96.2"
+  },
+  "categories": [
+    "Other"
+  ],
+  "extensionKind": [
+    "ui"
+  ],
+  "main": "./dist/extension.js",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": {
+      "supported": true
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "codexSidekick.probe",
+        "title": "Codex Sidekick: Show Diagnostics"
+      },
+      {
+        "command": "codexSidekick.openSidebar",
+        "title": "Codex Sidekick: Open Codex Sidebar"
+      },
+      {
+        "command": "codexSidekick.newChat",
+        "title": "Codex Sidekick: New Codex Chat"
+      },
+      {
+        "command": "codexSidekick.toggleNeo",
+        "title": "Codex Sidekick: Toggle Connection for This Workspace"
+      },
+      {
+        "command": "codexSidekick.setupActivity",
+        "title": "Codex Sidekick: Set Up Chat Activity"
+      }
+    ]
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ]
+}

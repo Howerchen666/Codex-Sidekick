@@ -1,0 +1,162 @@
+{
+  "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
+  "UUID": "dev.sidekick.codex",
+  "Name": "Codex Sidekick",
+  "Author": "Codex Sidekick contributors",
+  "Description": "See recent Codex activity and open chats from Stream Deck Neo.",
+  "Category": "Codex Sidekick",
+  "CategoryIcon": "assets/glyph",
+  "Icon": "assets/plugin",
+  "CodePath": "plugin.mjs",
+  "Version": "1.4.9.0",
+  "SDKVersion": 3,
+  "Software": {
+    "MinimumVersion": "7.6"
+  },
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "13"
+    }
+  ],
+  "Nodejs": {
+    "Version": "24"
+  },
+  "Actions": [
+    {
+      "UUID": "dev.sidekick.codex.slot-1",
+      "Name": "Chat Activity 1",
+      "Tooltip": "Show recent Codex chat 1 across your projects. Press to focus the chat if it is open in a Codex editor tab.",
+      "Controllers": [
+        "Keypad"
+      ],
+      "Icon": "assets/glyph",
+      "States": [
+        {
+          "Image": "assets/chat-1"
+        }
+      ],
+      "UserTitleEnabled": false
+    },
+    {
+      "UUID": "dev.sidekick.codex.slot-2",
+      "Name": "Chat Activity 2",
+      "Tooltip": "Show recent Codex chat 2 across your projects. Press to focus the chat if it is open in a Codex editor tab.",
+      "Controllers": [
+        "Keypad"
+      ],
+      "Icon": "assets/glyph",
+      "States": [
+        {
+          "Image": "assets/chat-2"
+        }
+      ],
+      "UserTitleEnabled": false
+    },
+    {
+      "UUID": "dev.sidekick.codex.slot-3",
+      "Name": "Chat Activity 3",
+      "Tooltip": "Show recent Codex chat 3 across your projects. Press to focus the chat if it is open in a Codex editor tab.",
+      "Controllers": [
+        "Keypad"
+      ],
+      "Icon": "assets/glyph",
+      "States": [
+        {
+          "Image": "assets/chat-3"
+        }
+      ],
+      "UserTitleEnabled": false
+    },
+    {
+      "UUID": "dev.sidekick.codex.slot-4",
+      "Name": "Chat Activity 4",
+      "Tooltip": "Show recent Codex chat 4 across your projects. Press to focus the chat if it is open in a Codex editor tab.",
+      "Controllers": [
+        "Keypad"
+      ],
+      "Icon": "assets/glyph",
+      "States": [
+        {
+          "Image": "assets/chat-4"
+        }
+      ],
+      "UserTitleEnabled": false
+    },
+    {
+      "UUID": "dev.sidekick.codex.opensidebar",
+      "Name": "Open Codex",
+      "Tooltip": "Show the Codex sidebar in VS Code.",
+      "Controllers": [
+        "Keypad"
+      ],
+      "Icon": "assets/openSidebar-glyph",
+      "States": [
+        {
+          "Image": "assets/openSidebar"
+        }
+      ],
+      "UserTitleEnabled": false
+    },
+    {
+      "UUID": "dev.sidekick.codex.newchat",
+      "Name": "New Chat",
+      "Tooltip": "Start a new Codex chat in VS Code.",
+      "Controllers": [
+        "Keypad"
+      ],
+      "Icon": "assets/newChat-glyph",
+      "States": [
+        {
+          "Image": "assets/newChat"
+        }
+      ],
+      "UserTitleEnabled": false
+    },
+    {
+      "UUID": "dev.sidekick.codex.newpanel",
+      "Name": "New Panel",
+      "Tooltip": "Open a separate Codex editor panel in VS Code.",
+      "Controllers": [
+        "Keypad"
+      ],
+      "Icon": "assets/newPanel-glyph",
+      "States": [
+        {
+          "Image": "assets/newPanel"
+        }
+      ],
+      "UserTitleEnabled": false
+    },
+    {
+      "UUID": "dev.sidekick.codex.opencommandmenu",
+      "Name": "Dictate",
+      "Tooltip": "Press to start native Codex dictation in VS Code; press again to stop. Review and send the draft in Codex.",
+      "Controllers": [
+        "Keypad"
+      ],
+      "Icon": "assets/dictate-glyph",
+      "States": [
+        {
+          "Image": "assets/dictate"
+        }
+      ],
+      "UserTitleEnabled": false
+    },
+    {
+      "UUID": "dev.sidekick.codex.infobar",
+      "Name": "Codex Usage",
+      "Tooltip": "Show remaining 5-hour and weekly allowances and tokens from the latest reported request.",
+      "Controllers": [
+        "Neo"
+      ],
+      "Icon": "assets/glyph",
+      "States": [
+        {
+          "Image": "assets/chat-1"
+        }
+      ],
+      "UserTitleEnabled": false
+    }
+  ]
+}

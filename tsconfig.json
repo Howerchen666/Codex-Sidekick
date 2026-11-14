@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": [
+      "node",
+      "vscode"
+    ],
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "apps/vscode-extension/src/**/*.ts",
+    "apps/vscode-extension/src/**/*.mts",
+    "packages/**/*.mts",
+    "apps/streamdeck-plugin/src/**/*.mts"
+  ]
+}
