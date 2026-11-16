@@ -159,7 +159,9 @@ export function connectDeck(onState: (state: DeckState) => void, dir = root()) {
     ))) return Promise.resolve(false);
     const id = ++sequence;
     return new Promise((resolve) => {
-      pending.set(id, { socket, resolve, timer: setTimeout(() => finish(id, false), 1800) });
+      // A chat deep link can wait for VS Code's first-use confirmation dialog.
+      const timeout = action === "focusChat" ? 30_000 : 1800;
+      pending.set(id, { socket, resolve, timer: setTimeout(() => finish(id, false), timeout) });
       send(socket, { type: "command", id, action, target });
     });
   }

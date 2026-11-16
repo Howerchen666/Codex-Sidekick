@@ -3,7 +3,7 @@
   "displayName": "Codex Sidekick",
   "description": "See recent Codex activity and use Codex shortcuts on Stream Deck Neo.",
   "publisher": "codex-sidekick",
-  "version": "1.7.0",
+  "version": "1.7.2",
   "license": "MIT",
   "engines": {
     "vscode": "^1.96.2"

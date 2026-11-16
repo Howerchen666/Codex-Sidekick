@@ -5,7 +5,7 @@ import { join } from "node:path";
 import type { summarize } from "../../../packages/hook-recorder/observations.mts";
 import { watchFeed } from "../../../packages/hook-recorder/feed.mts";
 import type { AccountUsage } from "../../../packages/account-usage/usage.mts";
-import { readCodexMetadata } from "./titles.mts";
+import { readCodexMetadata, type ChatResource } from "./titles.mts";
 import { endpointName, ensureRoot, isChatTarget, isControl, receive, root, send, VERSION, type Control, type RecentChat } from "../../../packages/neo-bridge/protocol.mts";
 
 /** True when a bridge from another running VS Code window is already listening. */
@@ -25,7 +25,7 @@ export function startBridge(options: {
   workspacePath?: string;
   log: string;
   run: (action: Control) => Promise<string>;
-  focusChat?: (session: string) => Promise<string>;
+  focusChat?: (session: string, threadId?: string) => Promise<string>;
   error: () => void;
 }, dir = root()): () => void {
   ensureRoot(dir);
@@ -34,6 +34,7 @@ export function startBridge(options: {
   const subscribers = new Set<Socket>();
   const abort = new AbortController();
   const titles = new Map<string, string>();
+  let chatResources = new Map<string, ChatResource>();
   let rows: ReturnType<typeof summarize> = [];
   let recentChats: RecentChat[] | undefined;
   let feed = false;
@@ -74,6 +75,7 @@ export function startBridge(options: {
           for (const key of titles.keys()) if (!sessions.has(key)) titles.delete(key);
           for (const [key, value] of found.titles) titles.set(key, value);
           if (found.recentChats) recentChats = found.recentChats;
+          chatResources = found.chatResources;
         }
         if (includeUsage && !abort.signal.aborted) usage = found?.usage;
         if (!abort.signal.aborted) publish();
@@ -136,9 +138,11 @@ export function startBridge(options: {
       else if (action === "focusChat" && isChatTarget(msg.target)) {
         const { session, workspace } = msg.target;
         const matches = (row: { session: string; workspace: string }) => row.session === session && row.workspace === workspace;
-        invoke = async () => (Boolean(recentChats?.some(matches)) || (feed && rows.some(matches)))
-          ? (await options.focusChat?.(session) ?? "unavailable")
-          : "unavailable";
+        invoke = async () => {
+          if (!recentChats?.some(matches) && !(feed && rows.some(matches))) return "unavailable";
+          const resource = chatResources.get(session);
+          return await options.focusChat?.(session, resource?.workspace === workspace ? resource.threadId : undefined) ?? "unavailable";
+        };
       } else { socket.destroy(); return; }
       const id = msg.id;
       if (busy) { send(socket, { type: "result", id, outcome: "busy" }); return; }

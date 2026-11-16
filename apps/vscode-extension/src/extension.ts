@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { otherBridgeRunning, startBridge } from "./bridge.js";
-import { focusChatTab } from "./chat-tabs.js";
+import { focusChatInSidebar } from "./chat-tabs.js";
 import { SetupError, activityLogPath, codexHome, setupActivity } from "./setup.mts";
 import { CODEX_EXTENSION_ID, createCommands } from "./commands.mts";
 import type { Control } from "../../../packages/neo-bridge/protocol.mts";
@@ -61,13 +61,13 @@ export function activate(context: vscode.ExtensionContext): void {
         workspacePath: folder.uri.fsPath,
         log: activityLogPath(context.globalStorageUri.fsPath),
         run: handle,
-        focusChat: async (session) => {
+        focusChat: async (session, threadId) => {
           if (!canConnect()) return "unavailable";
-          const outcome = await focusChatTab(session);
+          const outcome = await focusChatInSidebar(session, threadId);
+          log({ event: "chat-selection", outcome });
           if (outcome === "unavailable") {
-            await codex.run("openSidebar");
             void vscode.window.showInformationMessage(
-              "Select the chat in Codex’s recent chats list. This Codex version has no supported command for choosing a specific sidebar chat.",
+              "Sidekick couldn’t open this chat. Wait for the chat keys to refresh, then try again or open it from Codex’s recent chats list.",
             );
           }
           return outcome;

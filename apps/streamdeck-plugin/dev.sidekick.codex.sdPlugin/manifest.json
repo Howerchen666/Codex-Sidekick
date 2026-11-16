@@ -8,7 +8,7 @@
   "CategoryIcon": "assets/glyph",
   "Icon": "assets/plugin",
   "CodePath": "plugin.mjs",
-  "Version": "1.4.9.0",
+  "Version": "1.4.10.0",
   "SDKVersion": 3,
   "Software": {
     "MinimumVersion": "7.6"
@@ -26,7 +26,7 @@
     {
       "UUID": "dev.sidekick.codex.slot-1",
       "Name": "Chat Activity 1",
-      "Tooltip": "Show recent Codex chat 1 across your projects. Press to focus the chat if it is open in a Codex editor tab.",
+      "Tooltip": "Show recent Codex chat 1 across your projects. Press to open it in the Codex sidebar.",
       "Controllers": [
         "Keypad"
       ],
@@ -41,7 +41,7 @@
     {
       "UUID": "dev.sidekick.codex.slot-2",
       "Name": "Chat Activity 2",
-      "Tooltip": "Show recent Codex chat 2 across your projects. Press to focus the chat if it is open in a Codex editor tab.",
+      "Tooltip": "Show recent Codex chat 2 across your projects. Press to open it in the Codex sidebar.",
       "Controllers": [
         "Keypad"
       ],
@@ -56,7 +56,7 @@
     {
       "UUID": "dev.sidekick.codex.slot-3",
       "Name": "Chat Activity 3",
-      "Tooltip": "Show recent Codex chat 3 across your projects. Press to focus the chat if it is open in a Codex editor tab.",
+      "Tooltip": "Show recent Codex chat 3 across your projects. Press to open it in the Codex sidebar.",
       "Controllers": [
         "Keypad"
       ],
@@ -71,7 +71,7 @@
     {
       "UUID": "dev.sidekick.codex.slot-4",
       "Name": "Chat Activity 4",
-      "Tooltip": "Show recent Codex chat 4 across your projects. Press to focus the chat if it is open in a Codex editor tab.",
+      "Tooltip": "Show recent Codex chat 4 across your projects. Press to open it in the Codex sidebar.",
       "Controllers": [
         "Keypad"
       ],

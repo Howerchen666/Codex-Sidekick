@@ -70,6 +70,9 @@ test("title lookup recovers archived chats after reload and retains active names
   assert.equal(result.get(observationId("current-session")), "Current name");
   assert.equal(result.get(observationId("old-session")), "Archived name");
   assert.equal(result.has(observationId("unrelated-session")), false);
+  assert.equal(metadataResult.chatResources.get(observationId("current-session")).threadId, "current-session");
+  assert.equal(metadataResult.chatResources.get(observationId("old-session")).threadId, "old-session");
+  assert.equal(metadataResult.chatResources.has(observationId("unrelated-session")), false);
   assert.equal(requests.filter((request) => request.method === "thread/list").length, 2);
   assert.ok(requests.filter((request) => request.method === "thread/list").every((request) =>
     request.params.useStateDbOnly === true && request.params.cwd === "/fixture"));
@@ -91,6 +94,11 @@ test("title lookup recovers archived chats after reload and retains active names
   });
   assert.deepEqual(Array.from(recent.recentChats, (chat) => chat.title), ["Another project", "Untitled chat"]);
   assert.deepEqual(Object.keys(recent.recentChats[0]).sort(), ["at", "session", "title", "workspace"]);
+  assert.equal(recent.chatResources.get(observationId("other-workspace")).threadId, "other-workspace");
+  assert.equal(recent.chatResources.get(observationId("other-workspace")).workspace, observationId("/another/project"));
+  assert.equal(recent.chatResources.get(observationId("unnamed")).threadId, "unnamed");
+  assert.equal(recent.chatResources.has(observationId("archived")), false);
+  assert.equal(recent.chatResources.has(observationId("invalid")), false);
   const query = requests.findLast((request) => request.method === "thread/list");
   assert.equal(query.params.cwd, undefined);
   assert.equal(query.params.currentAccountOnly, true);

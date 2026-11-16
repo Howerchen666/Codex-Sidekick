@@ -6,7 +6,7 @@
 
 ## Features
 
-- **Recent chats, any project.** Four keys show your latest local Codex chats across every project. Pressing one focuses that chat's editor tab when it is open.
+- **Recent chats, any project.** Four keys show your latest local Codex chats across every project. Pressing one opens that conversation in the Codex sidebar.
 - **A glow that follows Codex.** Blue pulse while Codex works, amber when it asks for approval, a brief green glow when a turn ends, coral when it is interrupted.
 - **One-press dictation.** Press to record, press again to stop. Codex transcribes and leaves the draft unsent in the message box.
 - **Open Codex, New Chat, New Panel** keys.
@@ -40,11 +40,13 @@ If you use several VS Code windows, only one can be connected at a time, because
 
 | Key | What it does |
 | --- | --- |
-| Chat Activity 1–4 | Shows a recent chat and its status. Press to focus its editor tab, or to open the Codex sidebar if the chat isn't open in a tab. |
+| Chat Activity 1–4 | Shows a recent chat and its status. Press to open that conversation in the Codex sidebar. |
 | Open Codex | Opens the Codex sidebar. |
 | New Chat | Starts a new chat in the sidebar. |
 | New Panel | Opens a Codex editor panel. |
 | Dictate | Starts recording. Press again to stop and have Codex transcribe. |
+
+The first chat-key press may show a VS Code confirmation to open a link with OpenAI Codex. Confirm it and choose to remember your choice for subsequent presses.
 
 **Reading the glow**
 
@@ -68,7 +70,7 @@ Codex has no public command for dictation, so Sidekick finds Codex's own microph
 - **Dictation depends on Codex's interface.** It finds the microphone by its accessibility label, so a Codex redesign can break it until Sidekick is updated. The helper refuses to act when it cannot identify exactly one Codex microphone.
 - **Activity colors are observations, not live state.** They expire after a short time, and approval decisions always stay in Codex.
 - **One connected VS Code window at a time.**
-- **Chat selection is limited by Codex.** Codex exposes no command for choosing a sidebar chat, so a chat key focuses the matching editor tab when one is open and otherwise opens the sidebar.
+- **Chat selection depends on Codex's sidebar route.** Chat keys use VS Code's URI API to open a conversation through Codex's URI handler in the connected window. Codex's route format is an internal integration detail and may need updating if Codex changes it.
 - **Early release.** Tested on one Mac with one Neo.
 
 ## Privacy and security

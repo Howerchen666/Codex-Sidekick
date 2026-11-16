@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { mkdtempSync, mkdirSync, readFileSync, readdirSync, realpathSync } from "node:fs";
+import { mkdtempSync, mkdirSync, readFileSync, readdirSync, realpathSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -20,9 +20,16 @@ mkdirSync(extensions);
 mkdirSync(workspace);
 const codexState = join(scratch, "codex");
 mkdirSync(codexState, { mode: 0o700 });
+const userData = join(scratch, "user");
+mkdirSync(join(userData, "User"), { recursive: true });
+// Model a user who has already confirmed Codex's URI handler in this test-only
+// profile, so the sidebar smoke can run unattended.
+writeFileSync(join(userData, "User", "settings.json"), JSON.stringify({
+  "extensions.confirmedUriHandlerExtensionIds": ["openai.chatgpt"],
+}));
 const project = fileURLToPath(new URL("../", import.meta.url));
 const args = [
-  "--user-data-dir", join(scratch, "user"), "--extensions-dir", extensions,
+  "--user-data-dir", userData, "--extensions-dir", extensions,
   "--skip-welcome", "--skip-release-notes",
   "--extensionDevelopmentPath=" + join(project, "apps/vscode-extension"),
   "--extensionDevelopmentPath=" + officialPath,
@@ -32,7 +39,10 @@ const args = [
 console.log("Isolated VS Code test profile: " + scratch);
 // Inside a VS Code terminal or extension host this variable makes the Code binary behave as plain Node.
 const { ELECTRON_RUN_AS_NODE: _inherited, ...environment } = process.env;
-const child = spawn(vscodeBin, args, { env: { ...environment, CODEX_HOME: codexState }, stdio: ["ignore", "pipe", "pipe"] });
+const child = spawn(vscodeBin, args, {
+  env: { ...environment, CODEX_HOME: codexState, SIDEKICK_HOST_LOG_ROOT: join(userData, "logs") },
+  stdio: ["ignore", "pipe", "pipe"],
+});
 let reported = false;
 let output = "";
 child.stdout.on("data", (chunk) => {

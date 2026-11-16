@@ -6,6 +6,8 @@ import { projectAccountUsage, type AccountUsage } from "../../../packages/accoun
 import { chatTitle, observationId } from "../../../packages/hook-recorder/metadata.mts";
 import type { RecentChat } from "../../../packages/neo-bridge/protocol.mts";
 
+export type ChatResource = { threadId: string; workspace: string };
+
 async function codexExecutable(): Promise<string | undefined> {
   const directories = (process.env.PATH ?? "").split(delimiter).filter(isAbsolute);
   const candidates = new Set(["/opt/homebrew/bin/codex", "/usr/local/bin/codex",
@@ -29,11 +31,13 @@ export async function readCodexMetadata(options: {
   if (signal.aborted) return;
 
   // Read chat metadata and account limits through the documented App Server methods.
-  return new Promise<{ titles: Map<string, string>; recentChats?: RecentChat[]; usage?: AccountUsage } | undefined>((resolve) => {
+  return new Promise<{ titles: Map<string, string>; chatResources: Map<string, ChatResource>; recentChats?: RecentChat[]; usage?: AccountUsage } | undefined>((resolve) => {
     const child = spawn(executable, ["app-server", "--listen", "stdio://"], {
       cwd: "/", stdio: ["pipe", "pipe", "ignore"], signal,
     });
     const titles = new Map<string, string>();
+    // Raw IDs stay inside this extension host, never in the socket or activity log.
+    const chatResources = new Map<string, ChatResource>();
     let buffer = "";
     let received = 0;
     let closed = false;
@@ -47,7 +51,7 @@ export async function readCodexMetadata(options: {
       closed = true;
       clearTimeout(timer);
       child.kill();
-      resolve({ titles, usage, recentChats });
+      resolve({ titles, chatResources, usage, recentChats });
     };
     const settle = () => { if (titlesDone && usageDone && recentDone) finish(); };
     const timer = setTimeout(finish, 6000);
@@ -88,10 +92,11 @@ export async function readCodexMetadata(options: {
             for (const row of result.data) {
               const key = observationId(row?.id);
               const title = chatTitle(row?.name);
-              if (!key || !sessions.has(key) || !title || typeof row.cwd !== "string" || !isAbsolute(row.cwd)) continue;
+              if (!key || !sessions.has(key) || typeof row.cwd !== "string" || !isAbsolute(row.cwd)) continue;
               const fromWorkspace = relative(cwd, row.cwd);
               if (isAbsolute(fromWorkspace) || fromWorkspace === ".." || fromWorkspace.startsWith(".." + sep)) continue;
-              titles.set(key, title);
+              chatResources.set(key, { threadId: row.id, workspace: observationId(row.cwd)! });
+              if (title) titles.set(key, title);
             }
             if (id === 1 && [...sessions].some((session) => !titles.has(session))) {
               send({ id: 2, method: "thread/list", params: {
@@ -114,6 +119,7 @@ export async function readCodexMetadata(options: {
                 if (!session || !workspace || seen.has(session) || row?.ephemeral || row?.archived ||
                     typeof row?.updatedAt !== "number" || !Number.isFinite(ms) || ms <= 0 || ms > Date.now() + 60_000) continue;
                 seen.add(session);
+                chatResources.set(session, { threadId: row.id, workspace });
                 recentChats.push({ session, workspace, title: chatTitle(row.name) ?? "Untitled chat", at: new Date(ms).toISOString() });
                 if (recentChats.length === 12) break;
               }

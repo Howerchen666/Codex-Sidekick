@@ -83,7 +83,7 @@ test("feed shows an approval observation, then falls back to Unknown on loss", a
   await until(() => state.sessions[0]?.observation === "Unknown");
 });
 
-test("recent chat keys work before hooks and only show live tints from actual observations", async (t) => {
+test("recent chat keys allow time for sidebar link confirmation and work before hooks", async (t) => {
   const dir = await mkdtemp("/tmp/sk-recent-");
   t.after(() => rm(dir, { force: true, recursive: true }));
   const now = Date.now();
@@ -100,7 +100,7 @@ test("recent chat keys work before hooks and only show live tints from actual ob
         sessions: [], recentChats: [chat] });
       if (msg.type === "command" && msg.action === "focusChat") {
         focused = msg.target;
-        send(peer, { type: "result", id: msg.id, outcome: "invoked" });
+        setTimeout(() => send(peer, { type: "result", id: msg.id, outcome: "invoked" }), 2100);
       }
     });
   });
