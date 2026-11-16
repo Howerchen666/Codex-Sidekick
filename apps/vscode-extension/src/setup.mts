@@ -11,7 +11,19 @@ const execFileAsync = promisify(execFile);
 
 export class SetupError extends Error {}
 
-async function nodeExecutable(): Promise<string> {
+let nodeLookup: Promise<string> | undefined;
+
+function nodeExecutable(): Promise<string> {
+  // Reuse the validated choice for this extension session. A cold-start timeout
+  // must not make repeated setup switch runtimes and propose replacing hooks.
+  nodeLookup ??= findNodeExecutable().catch((error) => {
+    nodeLookup = undefined;
+    throw error;
+  });
+  return nodeLookup;
+}
+
+async function findNodeExecutable(): Promise<string> {
   const pathDirectories = (process.env.PATH ?? "").split(delimiter).filter(isAbsolute);
   const candidates = new Set([
     "/opt/homebrew/bin/node", "/opt/homebrew/opt/node@22/bin/node", "/usr/local/bin/node",
